@@ -1,0 +1,62 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.codeinvocation</groupId>
+	<artifactId>middleware-netty</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>Middleware Netty</name>
+	<description>Netty Based Middleware Application</description>
+
+	<dependencies>
+		<!-- https://mvnrepository.com/artifact/io.netty/netty-transport -->
+		<!--<dependency>
+			<groupId>io.netty</groupId>
+			<artifactId>netty-transport</artifactId>
+			<version>4.2.0.RC4</version>
+		</dependency>-->
+
+		<dependency>
+			<groupId>net.sf.j8583</groupId>
+			<artifactId>j8583</artifactId>
+			<version>1.17.0</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/io.netty/netty-codec-base -->
+		<!--<dependency>
+			<groupId>io.netty</groupId>
+			<artifactId>netty-codec-base</artifactId>
+			<version>4.2.0.RC4</version>
+		</dependency>-->
+
+		<!-- https://mvnrepository.com/artifact/io.netty/netty-handler -->
+		<dependency>
+			<groupId>io.netty</groupId>
+			<artifactId>netty-handler</artifactId>
+			<version>4.2.0.RC4</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/ch.qos.logback/logback-classic -->
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<version>1.5.18</version>
+			<scope>compile</scope>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>2.0.17</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.17.0</version>
+		</dependency>
+
+	</dependencies>
+</project>
