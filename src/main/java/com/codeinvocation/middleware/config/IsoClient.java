@@ -87,8 +87,35 @@ public class IsoClient {
 			
 		});
 	}
+
+	public CustomIsoMessage sendAndReceive(CustomIsoMessage requestMsg, long timeout) throws IOException {
+		sendRequest(requestMsg);
+		long start = System.currentTimeMillis();
+		while (!correlationMap.containsKey(requestMsg.getMessageKey()) 
+				&& (System.currentTimeMillis() - start < timeout) ) {
+			log.debug("Getting {} from correlation map", requestMsg.getMessageKey());
+			CommonUtil.sleep(100);
+		}
+		// take the message
+		return correlationMap.remove(requestMsg.getMessageKey());
+	}
 	
-	public void connect() {
+	/**
+     *	Shutdown a client 
+     */
+    public void shutdown(){
+        try {
+        	isShutdown = true;
+            workGroup.shutdownGracefully().addListener(e -> {log.info("Shutdown Completed");});
+			channel.closeFuture().sync();
+            timer.cancel();
+            timer.purge();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+    }
+    
+	private void connect() {
 		try{
 			log.info("Connecting to {}:{}", this.host, this.port);
 			ChannelFuture channelFuture = bootstrap.connect(this.host, this.port);
@@ -136,18 +163,6 @@ public class IsoClient {
 		}, delay );
 	}
 	
-	public CustomIsoMessage sendAndReceive(CustomIsoMessage requestMsg, long timeout) throws IOException {
-		sendRequest(requestMsg);
-		long start = System.currentTimeMillis();
-		while (!correlationMap.containsKey(requestMsg.getMessageKey()) 
-				&& (System.currentTimeMillis() - start < timeout) ) {
-			log.debug("Getting {} from correlation map", requestMsg.getMessageKey());
-			CommonUtil.sleep(100);
-		}
-		
-		return correlationMap.get(requestMsg.getMessageKey());
-	}
-	
 	private synchronized void sendRequest(CustomIsoMessage requestMsg) throws IOException {
 		if (channel == null) {
 			reconnect(5);
@@ -167,18 +182,4 @@ public class IsoClient {
 		}
 	}
 	
-	/**
-     *	Shutdown a client 
-     */
-    public void shutdown(){
-        try {
-        	isShutdown = true;
-            workGroup.shutdownGracefully().addListener(e -> {log.info("Shutdown Completed");});
-			channel.closeFuture().sync();
-            timer.cancel();
-            timer.purge();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-    }
 }
