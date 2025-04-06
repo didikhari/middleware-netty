@@ -39,17 +39,14 @@ public class MiddlewareApplication {
 			b.group(bossGroup, workerGroup)
 				.channel(NioServerSocketChannel.class)	
 	            .handler(new LoggingHandler(LogLevel.DEBUG))
-//                .option(ChannelOption.SO_REUSEADDR, true)
-//                .option(ChannelOption.SO_KEEPALIVE, keepAlive)
-//                .option(ChannelOption.SO_BACKLOG, backlog)
 				.childHandler(new ChannelInitializer<SocketChannel>() {
 
 					@Override
 					protected void initChannel(SocketChannel ch) throws Exception {
 						ChannelPipeline p = ch.pipeline();
 						p.addLast("frameDecoder", new AsciiFrameDecoder(Integer.MAX_VALUE, 0, 4, 0, 4));
-						p.addLast("frameEncoder", new AsciiFrameEncoder(4, false));
 						p.addLast("decoder", new Iso8583Decoder());
+						p.addLast("frameEncoder", new AsciiFrameEncoder(4, false));
 						p.addLast("encoder", new Iso8583Encoder());
 						p.addLast(new InboundMessageHandler());
 					}
@@ -60,7 +57,7 @@ public class MiddlewareApplication {
 			ch.closeFuture().sync();
 			
 		} finally {
-			
+			log.info("Shutting Down");
 			bossGroup.shutdownGracefully();	
 			workerGroup.shutdownGracefully();
 		}

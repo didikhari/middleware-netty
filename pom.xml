@@ -9,25 +9,12 @@
 	<description>Netty Based Middleware Application</description>
 
 	<dependencies>
-		<!-- https://mvnrepository.com/artifact/io.netty/netty-transport -->
-		<!--<dependency>
-			<groupId>io.netty</groupId>
-			<artifactId>netty-transport</artifactId>
-			<version>4.2.0.RC4</version>
-		</dependency>-->
 
 		<dependency>
 			<groupId>net.sf.j8583</groupId>
 			<artifactId>j8583</artifactId>
 			<version>1.17.0</version>
 		</dependency>
-
-		<!-- https://mvnrepository.com/artifact/io.netty/netty-codec-base -->
-		<!--<dependency>
-			<groupId>io.netty</groupId>
-			<artifactId>netty-codec-base</artifactId>
-			<version>4.2.0.RC4</version>
-		</dependency>-->
 
 		<!-- https://mvnrepository.com/artifact/io.netty/netty-handler -->
 		<dependency>
