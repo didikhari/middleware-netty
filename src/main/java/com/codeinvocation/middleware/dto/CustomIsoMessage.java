@@ -37,6 +37,10 @@ public class CustomIsoMessage extends IsoMessage {
 			return Integer.valueOf(result.toString());
 	}
 	
+	public String getMessageKey() {
+		return getInteger(11)+getString(41);
+	}
+	
 	public String dumpField(boolean incoming, String connectionId, String remoteAddress,
 			Long timestamp) {
 		String direction = incoming ? "INCOMING":"OUTGOING";

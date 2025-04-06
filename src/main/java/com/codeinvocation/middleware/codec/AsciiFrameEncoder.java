@@ -9,8 +9,10 @@ import org.apache.commons.lang3.StringUtils;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.ChannelHandler.Sharable;
 import io.netty.handler.codec.LengthFieldPrepender;
 
+@Sharable
 public class AsciiFrameEncoder extends LengthFieldPrepender {
 
 	private final ByteOrder byteOrder = ByteOrder.BIG_ENDIAN;
